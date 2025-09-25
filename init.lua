@@ -35,4 +35,4 @@ require("diagnostic-conf")
 
 -- colorscheme settings
 local color_scheme = require("colorschemes")
-
+color_scheme.tokyonight()

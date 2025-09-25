@@ -608,6 +608,12 @@ local plugin_specs = {
     ---@type quicker.SetupOptions
     opts = {},
   },
+  {
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {},
+  }
 }
 
 ---@diagnostic disable-next-line: missing-fields
