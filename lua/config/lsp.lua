@@ -134,6 +134,24 @@ local enabled_lsp_servers = {
   -- yamlls = "yaml-language-server",
 }
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "java",
+  callback = function()
+    local jdtls = require("jdtls")
+    local workspace_dir = vim.fn.stdpath("data") .. "/jdtls-workspace/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+
+    local config = {
+      cmd = { "jdtls" },
+      root_dir = require("jdtls.setup").find_root({ ".git", "pom.xml", "build.gradle" }),
+      capabilities = require("lsp_utils").get_default_capabilities(),
+      settings = { java = { configuration = { updateBuildConfiguration = "interactive" } } },
+      init_options = { bundles = {} },
+    }
+
+    jdtls.start_or_attach(config)
+  end,
+})
+
 for server_name, lsp_executable in pairs(enabled_lsp_servers) do
   if utils.executable(lsp_executable) then
     vim.lsp.enable(server_name)

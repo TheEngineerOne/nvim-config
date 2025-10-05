@@ -36,6 +36,31 @@ local plugin_specs = {
       require("config.nvim-cmp")
     end,
   },
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",         -- lazy-load when you run :Mason
+    build = ":MasonUpdate",-- optional, keeps Mason up-to-date
+    config = function()
+      require("mason").setup({
+        ui = {
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
+          },
+        },
+      })
+    end,
+  },
+  {
+  "mfussenegger/nvim-jdtls",
+  ft = { "java" },           -- only load for Java files
+  dependencies = { "neovim/nvim-lspconfig" }, -- optional, for LSP utilities
+  config = function()
+    -- you can leave this empty if you handle setup via autocmd
+  end,
+  },
+
   -- {
   --   "saghen/blink.cmp",
   --   -- optional: provides snippets for the snippet source
