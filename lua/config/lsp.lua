@@ -138,7 +138,10 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "java",
   callback = function()
     local jdtls = require("jdtls")
-    local workspace_dir = vim.fn.stdpath("data") .. "/jdtls-workspace/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+    -- Detect project root using standard roots
+    local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" })
+    -- Use root_dir as workspace
+    local workspace_dir = root_dir
 
     local config = {
       cmd = { "jdtls" },
