@@ -139,7 +139,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     local jdtls = require("jdtls")
     -- Detect project root using standard roots
-    local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" })
+    local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" ,".project"})
     -- Use root_dir as workspace
     local workspace_dir = root_dir
 

@@ -57,7 +57,6 @@ local plugin_specs = {
   ft = { "java" },           -- only load for Java files
   dependencies = { "neovim/nvim-lspconfig" }, -- optional, for LSP utilities
   config = function()
-    -- you can leave this empty if you handle setup via autocmd
   end,
   },
 
