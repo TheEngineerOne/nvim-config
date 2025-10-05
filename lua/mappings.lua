@@ -246,3 +246,22 @@ keymap.set("n", "<Esc>", function()
 end, {
   desc = "close floating win",
 })
+
+-- DAP controls
+-- Debug controls
+vim.keymap.set("n", "<F5>", function() require'dap'.continue() end, { noremap = true, silent = true })
+vim.keymap.set("n", "<F10>", function() require'dap'.step_over() end, { noremap = true, silent = true })
+vim.keymap.set("n", "<F11>", function() require'dap'.step_into() end, { noremap = true, silent = true })
+vim.keymap.set("n", "<F12>", function() require'dap'.step_out() end, { noremap = true, silent = true })
+
+-- Breakpoints
+vim.keymap.set("n", "<leader>db", function() require'dap'.toggle_breakpoint() end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>dB", function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, { noremap = true, silent = true })
+
+-- REPL / Evaluate
+vim.keymap.set("n", "<leader>dr", function() require'dap'.repl.open() end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>de", function() require'dapui'.eval() end, { noremap = true, silent = true })
+
+-- Run last debug session
+vim.keymap.set("n", "<leader>dl", function() require'dap'.run_last() end, { noremap = true, silent = true })
+
