@@ -46,10 +46,10 @@ M.colorscheme_conf = {
     use_theme("everforest")
   end,
   tokyonight = function()
-    require("tokyonight").setup({
-      style = "storm",      -- options: "storm", "night", "day"
-      transparent = true,  -- set true if you want transparent bg
-    })
+    require("tokyonight").setup {
+      style = "storm", -- options: "storm", "night", "day"
+      transparent = true, -- set true if you want transparent bg
+    }
     vim.cmd.colorscheme("tokyonight")
   end,
   nightfox = function()
