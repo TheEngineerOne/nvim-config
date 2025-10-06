@@ -126,7 +126,7 @@ vim.lsp.config("*", {
 local enabled_lsp_servers = {
   -- pyright = "delance-langserver",
   -- ruff = "ruff",
-  -- lua_ls = "lua-language-server",
+  lua_ls = "lua-language-server",
   -- ltex = "ltex-ls",
   clangd = "clangd",
   -- vimls = "vim-language-server",
@@ -139,7 +139,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     local jdtls = require("jdtls")
     -- Detect project root using standard roots
-    local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" ,".project"})
+    local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle", ".project" })
     -- Use root_dir as workspace
     local workspace_dir = root_dir
     local mason_path = vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/"
@@ -154,6 +154,12 @@ vim.api.nvim_create_autocmd("FileType", {
     }
 
     jdtls.start_or_attach(config)
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    vim.lsp.buf.format({ async = false })
   end,
 })
 
