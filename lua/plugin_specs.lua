@@ -38,10 +38,10 @@ local plugin_specs = {
   },
   {
     "williamboman/mason.nvim",
-    cmd = "Mason",         -- lazy-load when you run :Mason
-    build = ":MasonUpdate",-- optional, keeps Mason up-to-date
+    cmd = "Mason", -- lazy-load when you run :Mason
+    build = ":MasonUpdate", -- optional, keeps Mason up-to-date
     config = function()
-      require("mason").setup({
+      require("mason").setup {
         ui = {
           icons = {
             package_installed = "✓",
@@ -49,37 +49,94 @@ local plugin_specs = {
             package_uninstalled = "✗",
           },
         },
+      }
+    end,
+  },
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = { "java" }, -- only load for Java files
+    dependencies = { "neovim/nvim-lspconfig" }, -- optional, for LSP utilities
+    config = function() end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+    },
+    config = function()
+      local dap, dapui = require("dap"), require("dapui")
+      dapui.setup()
+
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local lint = require("lint")
+
+      -- configure linters per filetype
+      lint.linters_by_ft = {
+        python = { "ruff" }, -- e.g. use `ruff` for Python
+        javascript = { "eslint" },
+        typescript = { "eslint" },
+        lua = { "luacheck" },
+        sh = { "shellcheck" },
+        -- more filetypes → linters
+      }
+
+      -- create an augroup for linting
+      local lint_group = vim.api.nvim_create_augroup("MyLintGroup", { clear = true })
+
+      vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "InsertLeave" }, {
+        group = lint_group,
+        callback = function()
+          -- only lint if buffer is modifiable / not a special buffer
+          if vim.bo.readonly or vim.bo.buftype ~= "" then
+            return
+          end
+          lint.try_lint()
+        end,
       })
     end,
   },
   {
-  "mfussenegger/nvim-jdtls",
-  ft = { "java" },           -- only load for Java files
-  dependencies = { "neovim/nvim-lspconfig" }, -- optional, for LSP utilities
-  config = function()
-  end,
+    "stevearc/conform.nvim",
+    opts = {
+      -- which formatters to use per filetype
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "black" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        go = { "gofmt", "goimports" },
+        c = { "clang-format" },
+        cpp = { "clang-format" },
+        -- add others as needed
+      },
+      -- optionally have it format on save by itself
+      format_on_save = {
+        -- these options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      },
+      -- default fallback behavior when no formatter is found
+      default_format_opts = {
+        lsp_fallback = "fallback",
+      },
+    },
   },
-{
-  "rcarriga/nvim-dap-ui",
-  dependencies = { 
-    "mfussenegger/nvim-dap",
-    "nvim-neotest/nvim-nio",
-  },
-  config = function()
-    local dap, dapui = require("dap"), require("dapui")
-    dapui.setup()
 
-    dap.listeners.after.event_initialized["dapui_config"] = function()
-      dapui.open()
-    end
-    dap.listeners.before.event_terminated["dapui_config"] = function()
-      dapui.close()
-    end
-    dap.listeners.before.event_exited["dapui_config"] = function()
-      dapui.close()
-    end
-  end,
-},
   -- {
   --   "saghen/blink.cmp",
   --   -- optional: provides snippets for the snippet source
@@ -653,11 +710,11 @@ local plugin_specs = {
     opts = {},
   },
   {
-  "folke/tokyonight.nvim",
-  lazy = false,
-  priority = 1000,
-  opts = {},
-  }
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
 }
 
 ---@diagnostic disable-next-line: missing-fields
