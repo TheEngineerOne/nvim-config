@@ -249,19 +249,72 @@ end, {
 
 -- DAP controls
 -- Debug controls
-vim.keymap.set("n", "<F5>", function() require'dap'.continue() end, { noremap = true, silent = true })
-vim.keymap.set("n", "<F10>", function() require'dap'.step_over() end, { noremap = true, silent = true })
-vim.keymap.set("n", "<F11>", function() require'dap'.step_into() end, { noremap = true, silent = true })
-vim.keymap.set("n", "<F12>", function() require'dap'.step_out() end, { noremap = true, silent = true })
+--vim.keymap.set("n", "<F5>", function()
+--  require("dap").continue()
+--end, { noremap = true, silent = true })
+vim.keymap.set("n", "<F10>", function()
+  require("dap").step_over()
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<F11>", function()
+  require("dap").step_into()
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<F12>", function()
+  require("dap").step_out()
+end, { noremap = true, silent = true })
 
 -- Breakpoints
-vim.keymap.set("n", "<leader>db", function() require'dap'.toggle_breakpoint() end, { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>dB", function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>db", function()
+  require("dap").toggle_breakpoint()
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>dB", function()
+  require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end, { noremap = true, silent = true })
 
 -- REPL / Evaluate
-vim.keymap.set("n", "<leader>dr", function() require'dap'.repl.open() end, { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>de", function() require'dapui'.eval() end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>dr", function()
+  require("dap").repl.open()
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>de", function()
+  require("dapui").eval()
+end, { noremap = true, silent = true })
 
 -- Run last debug session
-vim.keymap.set("n", "<leader>dl", function() require'dap'.run_last() end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>dl", function()
+  require("dap").run_last()
+end, { noremap = true, silent = true })
 
+function _G.run_current_file()
+  local file = vim.fn.expand("%:p")
+  local ft = vim.bo.filetype
+
+  -- table acts as a switch-case
+  local run_commands = {
+    python = function()
+      return "python " .. file
+    end,
+    r = function()
+      return "Rscript " .. file
+    end,
+    lua = function()
+      return "lua " .. file
+    end,
+    javascript = function()
+      return "node " .. file
+    end,
+    typescript = function()
+      return "ts-node " .. file
+    end,
+  }
+
+  -- get the command for the current filetype
+  local cmd_func = run_commands[ft]
+  if cmd_func then
+    local cmd = cmd_func()
+    vim.cmd("split | terminal " .. cmd)
+  else
+    print("No run command defined for filetype: " .. ft)
+  end
+end
+
+-- map F5
+vim.api.nvim_set_keymap("n", "<F5>", ":lua run_current_file()<CR>", { noremap = true, silent = true })
