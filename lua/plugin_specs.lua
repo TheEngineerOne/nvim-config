@@ -92,7 +92,7 @@ local plugin_specs = {
         typescript = { "eslint" },
         lua = { "luacheck" },
         sh = { "shellcheck" },
-        -- more filetypes → linters
+        r = { "lintr" },
       }
 
       -- create an augroup for linting

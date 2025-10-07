@@ -132,6 +132,7 @@ local enabled_lsp_servers = {
   vimls = "vim-language-server",
   bashls = "bash-language-server",
   yamlls = "yaml-language-server",
+  r_language_server = "R",
 }
 
 vim.api.nvim_create_autocmd("FileType", {
