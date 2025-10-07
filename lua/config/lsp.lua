@@ -139,7 +139,8 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     local jdtls = require("jdtls")
     -- Detect project root using standard roots
-    local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle", ".project" })
+    local root_dir =
+      require("jdtls.setup").find_root { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle", ".project" }
     -- Use root_dir as workspace
     local workspace_dir = root_dir
     local mason_path = vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/"
@@ -147,7 +148,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
     local config = {
       cmd = { "jdtls" },
-      root_dir = require("jdtls.setup").find_root({ ".git", "pom.xml", "build.gradle" }),
+      root_dir = require("jdtls.setup").find_root { ".git", "pom.xml", "build.gradle" },
       capabilities = require("lsp_utils").get_default_capabilities(),
       settings = { java = { configuration = { updateBuildConfiguration = "interactive" } } },
       init_options = { bundles = bundles },
@@ -161,10 +162,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function(args)
     -- Use conform instead of vim.lsp.buf.format
-    require("conform").format({ bufnr = args.buf })
+    require("conform").format { bufnr = args.buf }
   end,
 })
-
 
 for server_name, lsp_executable in pairs(enabled_lsp_servers) do
   if utils.executable(lsp_executable) then
