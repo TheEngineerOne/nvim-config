@@ -167,6 +167,28 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+require("dap").adapters.r = {
+  type = "server",
+  port = 5678,
+  host = "localhost",
+  executable = {
+    command = "R",
+    args = { "--slave", "-e", "vscDebugger::.vsc.listenForDAP()" },
+  },
+}
+
+require("dap").configurations.r = {
+  {
+    type = "r",
+    name = "Debug R Script",
+    request = "launch",
+    program = function()
+      return vim.fn.input("Path to R script: ", vim.fn.getcwd() .. "/", "file")
+    end,
+    stopOnEntry = false,
+  },
+}
+
 for server_name, lsp_executable in pairs(enabled_lsp_servers) do
   if utils.executable(lsp_executable) then
     vim.lsp.enable(server_name)

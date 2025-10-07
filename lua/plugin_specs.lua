@@ -92,7 +92,6 @@ local plugin_specs = {
         typescript = { "eslint" },
         lua = { "luacheck" },
         sh = { "shellcheck" },
-        r = { "lintr" },
       }
 
       -- create an augroup for linting
@@ -124,6 +123,7 @@ local plugin_specs = {
         go = { "gofmt", "goimports" },
         c = { "clang-format" },
         cpp = { "clang-format" },
+        r = { "air" },
         -- add others as needed
       },
       -- optionally have it format on save by itself
