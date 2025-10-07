@@ -131,7 +131,7 @@ local enabled_lsp_servers = {
   clangd = "clangd",
   -- vimls = "vim-language-server",
   -- bashls = "bash-language-server",
-  -- yamlls = "yaml-language-server",
+  yamlls = "yaml-language-server",
 }
 
 vim.api.nvim_create_autocmd("FileType", {
