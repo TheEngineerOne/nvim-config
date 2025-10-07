@@ -130,7 +130,7 @@ local enabled_lsp_servers = {
   -- ltex = "ltex-ls",
   clangd = "clangd",
   -- vimls = "vim-language-server",
-  -- bashls = "bash-language-server",
+  bashls = "bash-language-server",
   yamlls = "yaml-language-server",
 }
 
