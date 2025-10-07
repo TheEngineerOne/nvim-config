@@ -129,7 +129,7 @@ local enabled_lsp_servers = {
   lua_ls = "lua-language-server",
   -- ltex = "ltex-ls",
   clangd = "clangd",
-  -- vimls = "vim-language-server",
+  vimls = "vim-language-server",
   bashls = "bash-language-server",
   yamlls = "yaml-language-server",
 }
