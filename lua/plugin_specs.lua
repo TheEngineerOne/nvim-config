@@ -637,7 +637,7 @@ local plugin_specs = {
 	-- file explorer
 	{
 		"nvim-tree/nvim-tree.lua",
-		keys = { "<space>s" },
+		keys = { ",s" },
 		config = function()
 			require("config.nvim-tree")
 		end,

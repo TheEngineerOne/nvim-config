@@ -51,12 +51,12 @@ end, {
 
 -- Insert a blank line below or above current line (do not move the cursor),
 -- see https://stackoverflow.com/a/16136133/6064933
-keymap.set("n", "<space>o", "printf('m`%so<ESC>``', v:count1)", {
+keymap.set("n", ",o", "printf('m`%so<ESC>``', v:count1)", {
   expr = true,
   desc = "insert line below",
 })
 
-keymap.set("n", "<space>O", "printf('m`%sO<ESC>``', v:count1)", {
+keymap.set("n", ",O", "printf('m`%sO<ESC>``', v:count1)", {
   expr = true,
   desc = "insert line above",
 })
@@ -128,7 +128,7 @@ keymap.set("n", "cc", '"_cc')
 keymap.set("x", "c", '"_c')
 
 -- Remove trailing whitespace characters
-keymap.set("n", "<leader><space>", "<cmd>StripTrailingWhitespace<cr>", { desc = "remove trailing space" })
+keymap.set("n", "<leader>,", "<cmd>StripTrailingWhitespace<cr>", { desc = "remove trailing space" })
 
 -- Copy entire buffer.
 keymap.set("n", "<leader>y", "<cmd>%yank<cr>", { desc = "yank entire buffer" })

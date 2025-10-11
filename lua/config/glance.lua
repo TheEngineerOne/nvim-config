@@ -7,6 +7,6 @@ glance.setup {
   },
 }
 
-vim.keymap.set("n", "<space>gd", "<cmd>Glance definitions<cr>")
-vim.keymap.set("n", "<space>gr", "<cmd>Glance references<cr>")
-vim.keymap.set("n", "<space>gi", "<cmd>Glance implementations<cr>")
+vim.keymap.set("n", ",gd", "<cmd>Glance definitions<cr>")
+vim.keymap.set("n", ",gr", "<cmd>Glance references<cr>")
+vim.keymap.set("n", ",gi", "<cmd>Glance implementations<cr>")
