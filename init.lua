@@ -36,3 +36,18 @@ require("diagnostic-conf")
 -- colorscheme settings
 local color_scheme = require("colorschemes")
 color_scheme.tokyonight()
+
+-- Create an autocommand group
+vim.api.nvim_create_augroup("AutoGenerateTags", { clear = true })
+
+-- Run ctags on buffer read or write
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+  group = "AutoGenerateTags",
+  pattern = "*", -- apply to all files; adjust if needed
+  callback = function()
+    local cwd = vim.fn.getcwd()
+    -- Run ctags recursively, excluding .git and node_modules as example
+    vim.fn.system { "ctags", "-R", "--exclude=.git", "--exclude=node_modules", cwd }
+    vim.notify("Tags regenerated for project: " .. cwd, vim.log.levels.INFO, { title = "ctags" })
+  end,
+})
