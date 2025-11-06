@@ -48,6 +48,5 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
     local cwd = vim.fn.getcwd()
     -- Run ctags recursively, excluding .git and node_modules as example
     vim.fn.system { "ctags", "-R", "--exclude=.git", "--exclude=node_modules", cwd }
-    vim.notify("Tags regenerated for project: " .. cwd, vim.log.levels.INFO, { title = "ctags" })
   end,
 })
