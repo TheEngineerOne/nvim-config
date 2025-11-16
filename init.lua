@@ -41,7 +41,7 @@ color_scheme.tokyonight()
 vim.api.nvim_create_augroup("AutoGenerateTags", { clear = true })
 
 -- Run ctags on buffer read or write
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   group = "AutoGenerateTags",
   pattern = "*", -- apply to all files; adjust if needed
   callback = function()
