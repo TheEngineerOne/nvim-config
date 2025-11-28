@@ -135,6 +135,7 @@ local enabled_lsp_servers = {
   yamlls = "yaml-language-server",
   r_language_server = "R",
   dotls = "dot-language-server",
+  coq = "coq-lsp",
 }
 
 vim.api.nvim_create_autocmd("FileType", {
