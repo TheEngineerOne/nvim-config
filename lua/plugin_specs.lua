@@ -53,6 +53,13 @@ local plugin_specs = {
     end,
   },
   {
+    "whonore/Coqtail",
+    ft = "coq", -- load Coqtail only for `.v` and `.v` files
+    config = function()
+      -- Optionally, you can configure it here
+    end,
+  },
+  {
     "mfussenegger/nvim-jdtls",
     ft = { "java" }, -- only load for Java files
     dependencies = { "neovim/nvim-lspconfig" }, -- optional, for LSP utilities
