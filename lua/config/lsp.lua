@@ -138,30 +138,6 @@ local enabled_lsp_servers = {
   coq = "coq-lsp",
 }
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "java",
-  callback = function()
-    local jdtls = require("jdtls")
-    -- Detect project root using standard roots
-    local root_dir =
-      require("jdtls.setup").find_root { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle", ".project" }
-    -- Use root_dir as workspace
-    local workspace_dir = root_dir
-    local mason_path = vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/"
-    local bundles = vim.fn.glob(mason_path .. "com.microsoft.java.debug.plugin-*.jar", true)
-
-    local config = {
-      cmd = { "jdtls" },
-      root_dir = require("jdtls.setup").find_root { ".git", "pom.xml", "build.gradle" },
-      capabilities = require("lsp_utils").get_default_capabilities(),
-      settings = { java = { configuration = { updateBuildConfiguration = "interactive" } } },
-      init_options = { bundles = bundles },
-    }
-
-    jdtls.start_or_attach(config)
-  end,
-})
-
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function(args)

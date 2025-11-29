@@ -63,7 +63,9 @@ local plugin_specs = {
     "mfussenegger/nvim-jdtls",
     ft = { "java" }, -- only load for Java files
     dependencies = { "neovim/nvim-lspconfig" }, -- optional, for LSP utilities
-    config = function() end,
+    config = function()
+      require("config.nvim-jdtls")
+    end,
   },
   {
     "rcarriga/nvim-dap-ui",
