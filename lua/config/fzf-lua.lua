@@ -8,6 +8,7 @@ require("fzf-lua").setup {
   },
   files = {
     previewer = false,
+    cmd = "find . -type f -print",
   },
 }
 

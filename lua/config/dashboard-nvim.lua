@@ -73,3 +73,17 @@ api.nvim_create_autocmd("FileType", {
     keymap.set("n", "e", ":enew<CR>", { buffer = true, silent = true })
   end,
 })
+
+vim.api.nvim_create_user_command("DashboardOpenProject", function()
+  require("fzflua").files {
+    prompt = "Select a project file> ",
+    cwd_only = true,
+    actions = {
+      ["default"] = function(selected)
+        local dir = vim.fn.fnamemodify(selected[1], ":p:h")
+        vim.cmd("tabnew")
+        vim.cmd("tcd " .. dir)
+      end,
+    },
+  }
+end, {})

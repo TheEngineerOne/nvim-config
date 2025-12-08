@@ -86,6 +86,27 @@ keymap.set("n", "<leader>ev", "<cmd>tabnew $MYVIMRC <bar> tcd %:h<cr>", {
   desc = "open init.lua",
 })
 
+keymap.set("n", "<Leader>ep", function()
+  -- open a new tab
+  vim.cmd("tabnew")
+  -- launch fzf-lua to pick a file
+  require("fzf-lua").files {
+    prompt = "Select project file> ",
+    cwd_only = true,
+    cmd = "find . -type f -print", -- explicitly pass your command
+    file_icons = false, -- disable icons here to avoid unicode in paths
+    actions = {
+      ["default"] = function(selected)
+        if not selected or #selected == 0 then
+          return
+        end
+        -- change tab directory to selected file's folder
+        vim.cmd("tcd " .. vim.fn.fnamemodify(selected[1], ":p:h"))
+      end,
+    },
+  }
+end, { silent = true, desc = "Open project in new tab" })
+
 keymap.set("n", "<leader>sv", function()
   vim.cmd([[
       update $MYVIMRC
