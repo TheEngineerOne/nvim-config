@@ -8,7 +8,8 @@ require("fzf-lua").setup {
   },
   files = {
     previewer = false,
-    cmd = "find . -type f -print",
+
+    cmd = "git rev-parse --is-inside-work-tree 2>/dev/null && find . -type f -print | git check-ignore --stdin || find . -type f -print",
   },
 }
 
