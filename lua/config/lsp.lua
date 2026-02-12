@@ -136,6 +136,7 @@ local enabled_lsp_servers = {
   r_language_server = "R",
   dotls = "dot-language-server",
   coq = "coq-lsp",
+  kotlin_language_server = "kotlin-language-server",
 }
 
 vim.api.nvim_create_autocmd("BufWritePre", {
