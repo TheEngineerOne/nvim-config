@@ -134,6 +134,7 @@ local plugin_specs = {
         cpp = { "clang-format" },
         r = { "air" },
         toml = { "taplo" },
+        kotlin = { "ktlint" },
         -- add others as needed
       },
       -- optionally have it format on save by itself
